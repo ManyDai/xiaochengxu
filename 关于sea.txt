@@ -1,0 +1,16 @@
+现阶段而言：
+模块化的js开发和静态文件的压缩合并结合使用时：
+
+
+1.用useref只合并公用的css(个别页面的css文件不合并)
+2.用useref合并公用库的js(例如lib目录下的jq和sea合并在一起)
+3.用gulp-seajs-transport转义模块，然后gulp-seajs-concat合并模块js(例如mod目录下的js模块)
+4.压缩mod下的js和css文件
+5.个别页面引入的js以及一些js插件不参与压缩合并
+
+
+特别注意：
+使用sea.js的技巧！
+js目录下包含lib,mod，entry三个目录，entry里面存放每个页面的入口文件，一个页面一个，入口文件js里面用来加载本页面所有需要用到的模块，然后在html页面里面sea.use(js/entry/xx.js)，这样就可以把每个页面所有引用的模块都合并到一起了entry/xx.js！！！而不是sea.use(['js/mod/xx.js’,'js/mod/yy.js'])这种形式，这个不会把页面所有引用的模块合到一起！
+
+另外sea.config({base:'./js/'})这么写相对路径，base的路径是相对于本页面的路径来说的,配置了base之后，模块引用的所有路径都是基于js目录的，所以模块间require时也要require(mod/x.js)即使模块都在一个目录下（seajs.config的base，js文件里require的路径第一个字符不是.的路径将在前面加上base目录。）
