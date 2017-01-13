@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微信小程序导航</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="css/public.all.min.css?v=56ec6990c2">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_6iluvsj0hm4y4x6r.css">
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "https://hm.baidu.com/hm.js?8dd63dd424cc104f02bda2d236d011d6";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+</head>
+<body>
+	<div class="wx-container text_center">
+		<div class="header">
+			<img src="img/logo.png" alt="">
+			<p class='intro-txt'>每日更新热门有趣的小程序,为了您更方便的使用,建议加入微信收藏,如果觉得不错欢迎分享！</p>
+			<p class='concatus'>联系我：748966063@qq.com</p>
+		</div>
+
+		<ul class="list">
+			{{su}}
+			<li v-for='item in apps | filterBy su' transition="staggered" stagger="200">
+
+				  <div class="jQaccordion-title" :class=item.status @click="open($index)"><div><span class="left">{{item.type}}</span><i class="right iconfont" :class=item.icon></i></div></div>
+				  <ul class="jQaccordion-content" >
+				  	<li class='overflow' v-for="smitem in item.applist | filterBy item.status" transition="staggered" stagger="60">
+				  		<span class="left appname relative">{{smitem.appname}} <div class="absolute alt" v-if="$index==0">长按复制文字去搜索</div></span>
+				  		<input type="text" class="right appalt" readonly :placeholder=smitem.appinfo>
+				  	</li>
+				  </ul>
+			</li>
+		</ul>
+	</div>
+
+
+
+	<div id="loading">
+		<div id="loading-center">
+			<div id="loading-center-absolute">
+				<div class="object" id="object_four"></div>
+				<div class="object" id="object_three"></div>
+				<div class="object" id="object_two"></div>
+				<div class="object" id="object_one"></div>
+			</div>
+		</div>
+	</div>
+
+	
+	<script src="js/lib/jquery-sea.all.min.js?v=eaf20c23cb"></script>
+	
+	<script type="text/javascript">
+		seajs.config({
+				base: './js/',
+		});
+		seajs.use('entry/index.js');
+		
+	</script>
+</body>
+</html>
